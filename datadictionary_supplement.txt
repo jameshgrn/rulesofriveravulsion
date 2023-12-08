@@ -1,0 +1,64 @@
+# data dictionary
+# blue color denotes icesat-2 measurement
+For final_submission_data.xlsx
+-------------------------------
+
+num_icesat_measurements: number of ICESat measurements used.
+num_fabdem_measurements: number of FABDEM measurements used.
+method_used: method used to calculate the channel depth based on the relationship between A and B. 1 = A<B, 2 = 1<A<1.5B, 3 = A>1.5B.
+dist_mtn_front_to_avulsion_m: distance from the mountain front to the avulsion point (m).
+total_transport_distance_m: total transport distance from mountain-valley exit to sink (m).
+normalized_distance: X_N from the manuscript, calculated as total_transport_distance_m / dist_mtn_front_to_avulsion_m (-)
+sar1: alluvial ridge slope measurement 1 (m/m).
+sar2: alluvial ridge slope measurement 2 (m/m).
+sar3: alluvial ridge slope measurement 3 (m/m).
+sar_mean: mean alluvial ridge slope (m/m).
+sm1: main channel slope measurement 1 (m/m).
+sm2: main channel slope measurement 2 (m/m).
+sm3: main channel slope measurement 3 (m/m).
+are1_m: alluvial ridge elevation measurement 1 (m).
+fpe1_m: floodplain elevation measurement 1 (m).
+wse1_m: water surface elevation measurement 1 (m).
+are2_m: alluvial ridge elevation measurement 2 (m).
+fpe2_m: floodplain elevation measurement 2 (m).
+wse2_m: water surface elevation measurement 2 (m).
+are3_m: alluvial ridge elevation measurement 3 (m).
+fpe3_m: floodplain elevation measurement 3 (m).
+wse3_m: water surface elevation measurement 3 (m).
+width_m: channel width (m).
+discharge_min_cms: minimum yearly discharge from RiverATLAS (m3/s).
+discharge_mean_cms: mean yearly discharge from RiverATLAS (m3/s).
+discharge_max_cms: maximum yearly discharge from RiverATLAS (m3/s).
+se_1: superelevation calculation from _1 measurements (m).
+se_2: superelevation calculation from _2 measurements (m).
+se_3: superelevation calculation from _3 measurements (m).
+se_std: standard deviation of superelevation measurements (m).
+sm_mean: mean main channel slope (m/m).
+gamma: ratio of alluvial ridge slope to main channel slope (-).
+spr: slope position ratio X_N/S_M (-).
+gamma_error_upper: upper bound of gamma error (-).
+gamma_error_lower: lower bound of gamma error (-).
+corrected_discharge: RiverATLAS corrected discharge (m3/s).
+xgb_depth: BASED depth estimate of channel depth (m).
+har1_m: alluvial ridge height calculation from _1 measurements (m).
+har2_m: alluvial ridge height calculation from _2 measurements (m).
+har3_m: alluvial ridge height calculation from _3 measurements (m).
+a: mean of (alluvial ridge elevation - water surface elevation) for all three measurements (m).
+b: same as xgb_depth, repeated for clarity (m).
+a1: (alluvial ridge elevation - water surface elevation) from _1 measurements (m).
+b1: same as xgb_depth, repeated for clarity (m).
+a2: (alluvial ridge elevation - water surface elevation) from _2 measurements (m).
+b2: same as xgb_depth, repeated for clarity (m).
+a3: (alluvial ridge elevation - water surface elevation) from _3 measurements (m).
+b3: same as xgb_depth, repeated for clarity (m).
+a_over_b: a / b (-).
+beta: superelevation, calculated according to method_used column, see manuscript for details.
+beta_sem: standard error of beta.
+lambda: product of beta and gamma (-).
+ab_flag: flag for whether or not a > b.
+beta_uncertainty: uncertainty in beta from monte carlo simulation, see manuscript for details.
+
+-------------------------------
+
+For XN_hist_data.xlsx
+all the same as above apart from the USED_FLAG column which denotes whether or not the measurement was used in the beta and gamma analysis. 1 = used, 0 = not used.
