@@ -258,16 +258,7 @@ class App(QMainWindow):
                             self.transform[5] + self.transform[4] * self.elevation.shape[0], self.transform[5]]
                 )
 
-                # Update the vmin and vmax values
-                self.vmin_slider.setRange(np.min(self.elevation), np.max(self.elevation))
-                self.vmax_slider.setRange(np.min(self.elevation), np.max(self.elevation))
-                self.vmin_slider.setValue(np.min(self.elevation))
-                self.vmax_slider.setValue(np.max(self.elevation))
-                self.on_vmin_slider_change(np.min(self.elevation))
-                self.on_vmax_slider_change(np.max(self.elevation))
-
                 # Redraw the canvas to reflect the changes
-                self.canvas.draw()
                 # Plotting the clipped GeoJSON data
                 self.geojson_data.plot(ax=self.ax, color='#4FA0CA', edgecolor='k', linewidth=0.75)  # You can change color and other properties
                 
