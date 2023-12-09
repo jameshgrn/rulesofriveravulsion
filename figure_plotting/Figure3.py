@@ -82,8 +82,6 @@ for spine in ax1.spines.values():
     spine.set_linewidth(.5)
 ax1.tick_params(axis='both', labelsize=5, pad=-2)
 
-
-
 ax0.text(.035, 1.035, 'B', transform=ax0.transAxes, 
          fontsize=6, fontweight='bold', va='top', ha='right')
 
