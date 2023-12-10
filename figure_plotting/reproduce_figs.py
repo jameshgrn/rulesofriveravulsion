@@ -48,6 +48,8 @@ ax.spines['bottom'].set_linewidth(0.5)  # Adjust the line width of the x-axis
 ax.spines['left'].set_linewidth(0.5)    # Adjust the line width of the y-axis
 sns.despine()
 
+
+
 #%%
 # Load data
 df = pd.read_excel('/Users/jakegearon/CursorProjects/RoRA_NatureSubmit/submission_data_final.xlsx')
@@ -176,7 +178,6 @@ xgb_reg.load_model("data/BASED_model/models/based_us_sans_trampush_early_stoppin
 
 
 # Defining power law and its inverse
-
 x_data = trampush_csv['Qbf [m3/s]'].values
 y_data = trampush_csv['RA_dis_m3_pmx_2'].values
 params, covariance = curve_fit(power_law, x_data, y_data)
@@ -215,6 +216,11 @@ trampush_csv['XGB_depth_M'] = xgb_reg.predict(guessworkM)
 guessworkRA_corr = trampush_csv[['Wbf [m]', 'S [-]', 'corrected_discharge']].astype(float)
 guessworkRA_corr.columns = ['width', 'slope', 'discharge']
 trampush_csv['XGB_depth_RA_corr'] = xgb_reg.predict(guessworkRA_corr)
+
+# using alluvial ridge elevation,  floodplain elevation, and, sar to back calculate the distance
+df['sar1_distance_m'] = df['har1_m']/df['sar1']
+df['sar2_distance_m'] = df['har2_m']/df['sar2']
+df['sar3_distance_m'] = df['har3_m']/df['sar3']
 
 #save out trampush csv and the df
 trampush_csv.to_csv("data/figure2_data/TrampushDataCleanProcessed.csv", index=False)
