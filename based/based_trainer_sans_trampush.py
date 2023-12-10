@@ -4,8 +4,9 @@ from sklearn.model_selection import train_test_split
 from skopt import BayesSearchCV
 
 # Load the data
-df = pd.read_csv("data/based_input_data.csv").drop("Unnamed: 0", axis=1)
+df = pd.read_csv("data/BASED_model/based_input_data.csv").drop("Unnamed: 0", axis=1)
 df = df[df['discharge'] > 0]
+# Remove rows where 'source' contains 'Trampush' case-insensitively as they are our validation dataset
 df = df[~df['source'].str.contains('Trampush', case=False, na=False)]
 
 
@@ -67,8 +68,8 @@ n_best_trees = cv_results['test-mae-mean'].idxmin() + 1
 final_model = xgb.train(best_params, dtrain, num_boost_round=n_best_trees)
 
 # Save the model
-final_model.save_model("based/models/based_us_sans_trampush_early_stopping_combat_overfitting.ubj")
-X_test.to_csv("data/train_test/based_us_Xtest_data_sans_trampush.csv")
-y_test.to_csv("data/train_test/based_us_ytest_data_sans_trampush.csv")
-X_train.to_csv("data/train_test/based_us_Xtrain_data_sans_trampush.csv")
-y_train.to_csv("data/train_test/based_us_ytrain_data_sans_trampush.csv")
+final_model.save_model("data/BASED_model/models/based_us_sans_trampush_early_stopping_combat_overfitting.ubj")
+X_test.to_csv("data/BASED_model/train_test/based_us_Xtest_data_sans_trampush.csv")
+y_test.to_csv("data/BASED_model/train_test/based_us_ytest_data_sans_trampush.csv")
+X_train.to_csv("data/BASED_model/train_test/based_us_Xtrain_data_sans_trampush.csv")
+y_train.to_csv("data/BASED_model/train_test/based_us_ytrain_data_sans_trampush.csv")

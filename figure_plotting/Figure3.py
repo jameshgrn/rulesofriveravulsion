@@ -2,7 +2,18 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import seaborn as sns
 import numpy as np
-from scipy.stats import gmean
+import pandas as pd
+import matplotlib.ticker as ticker
+
+
+
+palette = sns.color_palette("colorblind")
+
+
+
+df = pd.read_csv('data/figure2_data/fig2_data.csv')
+trampush_csv = pd.read_csv("data/figure2_data/TrampushDataCleanProcessed.csv")
+boot_df = pd.read_csv('data/figure2_data/fig2_data_boot.csv')
 
 # Custom formatter function
 def custom_formatter(x, pos):
@@ -29,15 +40,14 @@ ax1 = fig.add_subplot(gs[0])  # For scatter and lines
 ax0 = fig.add_subplot(gs[1])  # For CDF, share the y-axis with ax1
 
 # Plot histogram on the top axis
-sns.ecdfplot(data=df, x=df['XS/DS']*df['superelevation_ov_mean'], ax=ax0, color='k', linewidth=1.25)
+sns.ecdfplot(data=df, x=df['gamma']*df['beta'], ax=ax0, color='k', linewidth=1.25)
 ax0.set_xlabel(r'$\Lambda$', fontsize=7, labelpad=0) 
 ax0.set_ylabel('CDF')
 ax0.tick_params(axis='y', labelsize=5)  # No y-axis labels on the CDF
 ax0.tick_params(axis='x', labelsize=5)
 # Calculate the arithmetic mean, geometric mean, and median
-arithmetic_mean = np.mean(df['XS/DS']*df['superelevation_ov_mean'])
-geometric_mean_val = gmean(df['XS/DS']*df['superelevation_ov_mean'])
-median_val = np.median(df['XS/DS']*df['superelevation_ov_mean'])
+arithmetic_mean = np.mean(df['gamma']*df['beta'])
+median_val = np.median(df['gamma']*df['beta'])
 
 # Add vertical lines to the histogram
 ax0.axvline(arithmetic_mean, color='k', linestyle='--', lw=0.6, label='Mean')
@@ -50,9 +60,9 @@ ax0.legend(fontsize=5)
 #ax0.set_xticks([])  # Remove xticks for the histogram
 ax0.set_ylabel('CDF', fontsize=7)
 ax0.tick_params(axis='both', labelsize=5, pad=-2)
-ax1.errorbar(df['XS/DS'], df['superelevation_ov_mean'], yerr=boot_df['uncertainty'], xerr=[yerr_lower_relative, yerr_upper_relative], capsize=2.25, capthick=.4, ls='none', lw=.4, alpha=0.5, color='black', markeredgecolor='black', markersize=8, zorder=1)
+ax1.errorbar(df['gamma'], df['beta'], yerr=boot_df['beta_uncertainty'], xerr=[df['yerr_lower_relative'], df['yerr_upper_relative']], capsize=2.25, capthick=.4, ls='none', lw=.4, alpha=0.5, color='black', markeredgecolor='black', markersize=8, zorder=1)
 # Scatter plot
-sns.scatterplot(data=df, x=df['XS/DS'], y='superelevation_ov_mean', hue='Geomorphology', hue_order=['Delta', 'Fan', 'Alluvial Plain'], s=40, edgecolor='k', ax=ax1, alpha=0.75, palette=palette)
+sns.scatterplot(data=df, x=df['gamma'], y='beta', hue='geomorphology', hue_order=['Delta', 'Fan', 'Alluvial Plain'], s=40, edgecolor='k', ax=ax1, alpha=0.75, palette=palette)
 # ax1.set_ylim(0, 5)
 # ax1.set_xlim(0, 35)
 # Define beta values
@@ -93,5 +103,4 @@ ax1.set_yticks([.01, 0.1, 1, 10])
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 plt.tight_layout()
 plt.margins(0, 0)
-plt.savefig('figures/FIGURE3.png', dpi=300)
-
+plt.savefig('figure_plotting/figure3.png', dpi=300)

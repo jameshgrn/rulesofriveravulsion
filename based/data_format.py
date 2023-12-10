@@ -21,13 +21,13 @@ def generate_data():
 
     """
     # Load Dunne Jerolmack Dataset
-    dunne_jerolmack_path = r"data/GlobalDatasets.xlsx"
+    dunne_jerolmack_path = r"data/BASED_model/GlobalDatasets.xlsx"
     dunne_jerolmack = pd.read_excel(dunne_jerolmack_path)
 
     # Drop unnecessary columns
     dunne_jerolmack = dunne_jerolmack.drop(['tau_*bf', 'D50 (m)'], axis=1)
 
-    # Add a 'bankfull' column with True values
+    # Add a 'bankfull' column with True values as they are all bankfull (Dunne and Jerolmack, 2018)
     dunne_jerolmack['bankfull'] = True
 
     # Rename columns for consistency
@@ -40,11 +40,11 @@ def generate_data():
     # Make sure 'slope' values are positive
     dunne_jerolmack['slope'] = dunne_jerolmack['slope'].abs()
 
-    # Remove rows where 'source' contains 'Singer' case-insensitively
+    # Remove rows where 'source' contains 'Singer' case-insensitively as they are in the Deal Dataset
     dunne_jerolmack = dunne_jerolmack[~dunne_jerolmack['source'].str.contains('Singer', case=False, na=False)]
 
     # Load Deal Dataset
-    deal_ds_path = "data/HG_data_comp_complete.csv"
+    deal_ds_path = "data/BASED_model/HG_data_comp_complete.csv"
     deal_ds = pd.read_csv(deal_ds_path)
 
     # Remove rows where 'river_class' is -1.0
@@ -57,24 +57,6 @@ def generate_data():
     # Convert 'source' and 'site_id' to strings
     deal_ds['source'] = deal_ds['source'].astype(str)
     deal_ds['site_id'] = deal_ds['source'].astype(str)
-
-    # Load Fulton Dataset
-    fulton_ds_path = "data/fulton_ds_with_slope.parquet"
-    fulton_ds = pd.read_parquet(fulton_ds_path)
-
-    # Convert units: cubic feet per second to cubic meters per second
-    fulton_ds['q_va_metric'] = fulton_ds['q_va'].astype(float) * 0.0283168
-    # Convert units: feet to meters
-    fulton_ds['stream_wdth_va'] = fulton_ds['stream_wdth_va'].astype(float) * 0.3048
-    fulton_ds['mean_depth_va'] = fulton_ds['mean_depth_va'].astype(float) * 0.3048
-
-    # Select relevant columns and rename them
-    fulton_ds = fulton_ds.filter(['q_va_metric', 'stream_wdth_va', 'mean_depth_va', 'site_no', 'slope'])
-    fulton_ds.columns = ['discharge', 'width', 'depth', 'site_id', 'slope']
-
-    # Add 'source' and 'bankfull' columns
-    fulton_ds['source'] = 'USGS'
-    fulton_ds['bankfull'] = True  # Assuming max depth as bankfull depth
 
     # Concatenate all dataframes
     based_input_data = pd.concat([deal_ds, dunne_jerolmack], axis=0)

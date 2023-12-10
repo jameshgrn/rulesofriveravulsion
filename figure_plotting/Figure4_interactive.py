@@ -74,7 +74,6 @@ class App(QMainWindow):
         load_lat_lon_button = QPushButton('Load Lat/Lon')
         load_lat_lon_button.clicked.connect(self.load_lat_lon)
         input_layout.addWidget(load_lat_lon_button)
-        
 
         # Add the "Load DEM" button to the vertical layout
         button = QPushButton('Load DEM')
@@ -326,7 +325,7 @@ class App(QMainWindow):
                 error_dialog.exec_()
 
     def onclick(self, event):
-        if event.xdata is not None and event.ydata is not None:
+        if event.inaxes is not None:
             ix, iy = event.xdata, event.ydata
             print(f"Clicked at ({ix:.2f}, {iy:.2f})")
 
@@ -336,6 +335,7 @@ class App(QMainWindow):
                 self.selected_points = []  # Clear previous selection since we allow only one point
 
             self.selected_points.append((ix, iy))
+            self.starting_point = (ix, iy)  # Update the starting_point attribute
             self.label.setText(f"Selected point: ({ix:.6f}, {iy:.6f}).\n Press 'd' to save, 'u' to undo.")
             self.current_marker, = self.ax.plot(ix, iy, 'ro', markersize=5)  # Place the new marker
             self.canvas.draw()
@@ -377,6 +377,7 @@ class App(QMainWindow):
             except ValueError:
                 self.label.setText("Invalid inputs for theta, alpha, beta, or number of trials.")
                 return
+            
             self.start_random_walk(last_point, theta, alpha, beta, steps=steps, num_trials=num_trials, pct_over=pct_over, sigma=sigma)
         else:
             self.label.setText("No point selected to initiate walk!")
@@ -410,7 +411,6 @@ class App(QMainWindow):
 
         rgba_data[..., 3] = np.where(average_visit_frequency > 0, 1, 0)
         print(np.unique(rgba_data[..., 3]))
-
 
         smoothed_mask = gaussian_filter(average_visit_frequency, sigma=sigma)
 

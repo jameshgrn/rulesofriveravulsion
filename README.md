@@ -39,9 +39,11 @@ The codebase is organized into several directories:
 To run the interactive figure plotting script, navigate to the `figure_plotting` directory and run the script with Python:
 
 ```bash
-cd figure_plotting
-python Figure4_interactive.py
+poetry run plot_figures.py
 ```
+
+Figure 4 is an interactive figure that allows you to load a DEM and GeoJSON file and perform a random walk simulation on the DEM. See the [the speceific readme](figure_plotting/Figure4_interactive_README.md) 
+
 
 ### License
 
@@ -49,4 +51,4 @@ This project is licensed under the MIT License. For more details, see the `LICEN
 
 ### Contact
 
-For any questions or concerns, please contact Jake Gearon at jhgearon@iu.edu.
+For any questions or concerns, please contact James (Jake) Gearon at jhgearon@iu.edu.
