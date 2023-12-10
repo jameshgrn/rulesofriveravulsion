@@ -1,3 +1,4 @@
+# %%
 import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
@@ -12,6 +13,28 @@ from sklearn.metrics import mean_squared_error
 from matplotlib import gridspec
 from scipy.optimize import curve_fit
 import pickle
+
+
+meanprops = {
+    "marker": "D",
+    "markerfacecolor": "white",
+    "markeredgecolor": "black",
+    "markersize": "3",
+    "markeredgewidth": 0.25
+}
+
+flierprops = {
+    "marker": "^",
+    "markerfacecolor": "white",
+    "markeredgecolor": "black",
+    "markersize": "3",
+    "markeredgewidth": 0.5
+}
+fontsize = 7
+palette = sns.color_palette("colorblind")
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
+sns.set(font_scale=1.0, style="white")
 
 df = pd.read_csv('data/figure2_data/fig2_data.csv')
 trampush_csv = pd.read_csv("data/figure2_data/TrampushDataCleanProcessed.csv")
@@ -58,26 +81,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
 
 
-meanprops = {
-    "marker": "D",
-    "markerfacecolor": "white",
-    "markeredgecolor": "black",
-    "markersize": "3",
-    "markeredgewidth": 0.25
-}
 
-flierprops = {
-    "marker": "^",
-    "markerfacecolor": "white",
-    "markeredgecolor": "black",
-    "markersize": "3",
-    "markeredgewidth": 0.5
-}
-fontsize = 7
-palette = sns.color_palette("colorblind")
-#palette = ['#00C853', '#EF6C00','#304FFE']
-matplotlib.rcParams['pdf.fonttype'] = 42
-matplotlib.rcParams['ps.fonttype'] = 42
 
 
 def plot_scatter_with_lowess(ax, data, x_col, y_col, frac=1, len_boot=5000, color_data=None, palette=palette, edgecolor='black'):
@@ -235,8 +239,6 @@ for ax in all_axes:
 
 plt.margins(0, 0)
 plt.savefig('figure_plotting/figures/figure2.png', dpi=300)
-
-
-#%%
+plt.savefig('figure_plotting/figures/figure2.pdf')
 
 
