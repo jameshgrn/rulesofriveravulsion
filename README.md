@@ -94,9 +94,9 @@ Now you are ready to run the scripts in this repository.
 
 The codebase is organized into several directories:
 
-- `figure_plotting`: Contains scripts for generating figures for the manuscript. Necessary data cleaning is done with [`figure_plotting/reproduce_figs.py`] which should be run before any other figure plotting routine. [`Figure1.py`](figure_plotting/Figure1.py) plots figure 1, [`Figure2.py`](figure_plotting/Figure2.py) plots figure 2, [`Figure3.py`](figure_plotting/Figure3.py) plots figure 3, and [`Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) starts the interactive demonstration of figure 4 (see the [Figures](#figures) section for more information). Plotted figures from the main text are placed into the [`figure_plotting/figures`](figure_plotting/figures) apart from the results of [`figure_plotting/Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) which are placed into [`figure_plotting/figures/figure4`](figure_plotting/figures/figure4). Extended data figures are placed into [`figure_plotting/figures/extended_data_figs`](figure_plotting/figures/extended_data_figs).  
+- `figure_plotting`: Contains scripts for generating figures for the manuscript. Necessary data cleaning is done with [`figure_plotting/reproduce_figs.py`](figure_plotting/reproduce_figs.py) which should be run before any other figure plotting routine. [`Figure1.py`](figure_plotting/Figure1.py) plots figure 1, [`Figure2.py`](figure_plotting/Figure2.py) plots figure 2, [`Figure3.py`](figure_plotting/Figure3.py) plots figure 3, and [`Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) starts the interactive demonstration of figure 4 (see the [Figures](#figures) section for more information). Plotted figures from the main text are placed into the [`figure_plotting/figures`](figure_plotting/figures) apart from the results of [`figure_plotting/Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) which are placed into [`figure_plotting/figures/figure4`](figure_plotting/figures/figure4). Extended data figures are placed into [`figure_plotting/figures/extended_data_figs`](figure_plotting/figures/extended_data_figs).  
 
-- `data`: Contains the data used in the manuscript. ['data/avulsion_data'](data/avulsion_data) contains the raw data files (after downloading and unzipping) that must be used to recreate the plots and analyses from the manuscript. Data used to train, validate, and use the BASED model are located in ['data/BASED_model'](data/BASED_model). Data for extended data figures is in ['data/extended_data_figure_data'](data/extended_data_figure_data). Data for figures 2-4 are included in both ['data/figure2_data'](data/figure2_data) and ['data/figure4_data'](data/figure4_data). Supplementary data tables submitted with the manuscript are located in ['data/manuscript_data'](data/manuscript_data).
+- `data`: Contains the data used in the manuscript. [`data/avulsion_data`](data/avulsion_data) contains the raw data files (after downloading and unzipping) that must be used to recreate the plots and analyses from the manuscript. Data used to train, validate, and use the BASED model are located in [`data/BASED_model`](data/BASED_model). Data for extended data figures is in [`data/extended_data_figure_data`](data/extended_data_figure_data). Data for figures 2-4 are included in both ['data/figure2_data'](data/figure2_data) and [`data/figure4_data`](data/figure4_data). Supplementary data tables submitted with the manuscript are located in [`data/manuscript_data`](data/manuscript_data).
 
 - `based`: Contains the codes required to train and validate for the BASED model.
 
@@ -149,35 +149,36 @@ will open a GUI that allows you to load a DEM and GeoJSON file and perform a ran
 
 6. **Reset**: This button clears the current selection and resets the plot.
 
-7. **Save Random Walker Cloud**: This button allows you to save the result of the random walk simulation as a GeoTIFF file.
+7. **Apply Changes**: This button applies visualization parameters dynamically.
+
+8. **Save Random Walker Cloud**: This button allows you to save the result of the random walk simulation as a GeoTIFF file.
 
 *note: threshold pct over and sigma both control the visualization in figure 4. Threshold pct over controls the normalized visitation frequency threshold that gets plotted, default is 0.05. sigma controls the blending/smoothing kernel radius of the visualization. Additionally, this script assumes that the DEM and the GeoJSON files are in the same Coordinate Reference System (CRS). If they are not, you may need to reproject one of them to match the other.*
-
 
 ### Cross Section Data
 To view cross section data it is first recommended to understand the structure of the data files. After downloading from Zenodo and storing the data files in the `data/avulsion_data` directory, you can run the following command to view the cross section data in *map view*:
 
 ```zsh
-poetry run python figure_plotting/cross_section_mapview.py --cross_section_name TURK_002_1991 --cross_section_number 1 --renderer browser --fraction 0.05
+poetry run python figure_plotting/cross_section_mapview.py --cross_section_name A012 --cross_section_number 1 --renderer browser --fraction 0.05
 ```
 
-Here we've supplied the cross section name (TURK_002_1991) and number (1). You can supply 1, 2, or 3 to see the relevant cross sections. You can also supply "val_fabdem" or "val_is2" to the cross_section_number argument to view the cross section data for the validation data. The fraction argument is used to downsample the data for faster rendering. The default is 0.05, which means that 5% of the data will be rendered. The renderer argument can be used to specify the renderer. The default is "browser", which will open a browser window to view the data. The other option is "matplotlib", which will render the data in a matplotlib window.
+Here we've supplied the cross section name (A012) and number (1). You can supply 1, 2, or 3 to see the relevant cross sections. You can also supply "val_fabdem" or "val_is2" to the cross_section_number argument to view the cross section data for the validation data. The fraction argument is used to downsample the data for faster rendering. The default is 0.05, which means that 5% of the data will be rendered. The renderer argument can be used to specify the renderer. The default is "browser", which will open a browser window to view the data. The other option is "matplotlib", which will render the data in a matplotlib window.
 
-![Output of figure_plotting/cross_section_mapview.py for cross section name 'TURK_002_1991'](readme_images/cross_section_mapview_output.png)
+![Output of figure_plotting/cross_section_mapview.py for cross section name 'A012'](readme_images/cross_section_mapview_output.png)
 
 To view cross section data in *profile view*, run the following command:
 
 ```zsh
-poetry run python figure_plotting/cross_section_sideview.py --cross_section_name TURK_002_1991 --cross_section_number 1 --renderer browser --atl08_class 1 --fraction 0.05
+poetry run python figure_plotting/cross_section_sideview.py --cross_section_name A012 --cross_section_number 1 --renderer browser --atl08_class 1 --fraction 0.05
 ```
 
 There are two filters that can be applied to the data. The first is the `atl08_class` argument, which can be used to filter the data by the ATL08 class that separates ground from canopy and noise. 1 corresponds to ground, 2 to low canopy (often sometimes fuzzy ground photons!) and 3 (canopy). 0 is identified noise. which is the ground class. The other filter is `atl03_cnf`, which can be used to filter the data by the ATL03 confidence flag. 4 is highest confidence, 3 is high confidence, and 2 is medium confidence. 1 is low confidence and 0 is noise. There are no defaults. Often it is best to view the cross section in full and filter as required, usually a good next step is starting with `atl08_class` equal to 1.
 
-For more information about `atl08_class` and `atl03_cnf`, consult this page of the [sliderule documentation]()
+For more information about `atl08_class` and `atl03_cnf`, consult this page of the [sliderule documentation](https://slideruleearth.io/web/rtd/user_guide/ICESat-2.html)
 
 The picks for the cross section are plotted on top of the profile view cross section. Red corresponds to the alluvial ridge height, green corresponds to the floodplain elevation, and blue corresponds to the water surface elevation. as a reminder, water surface elevations were measured using icesat, so they may not plot on the water surface of FABDEM, which is hydroflattened and therefore nonphysical.
 
-![Output of cross_section_sideview.py for cross section name 'TURK_002_1991'](readme_images/cross_section_sideview_output.png)
+![Output of cross_section_sideview.py for cross section name 'A012'](readme_images/cross_section_sideview_output.png)
 
 
 ### License
