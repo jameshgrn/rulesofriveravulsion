@@ -4,9 +4,8 @@
 1. [Project Overview](#project-overview)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Troubleshooting](#troubleshooting)
-5. [License](#license)
-6. [Contact](#contact)
+4. [License](#license)
+5. [Contact](#contact)
 
 ## Project Overview
 
@@ -190,11 +189,11 @@ The picks for the cross section are plotted on top of the profile view cross sec
 ![Output of cross_section_sideview.py for cross section name 'A012'](readme_images/cross_section_sideview_output.png)
 
 
-### License
+## License
 
 This project is licensed under the MIT License. For more details, see the [LICENSE](LICENSE) file.
 
-### Contact
+## Contact
 
 For any questions, concerns, or thoughts, please contact James (Jake) Gearon at jhgearon@iu.edu.
 
