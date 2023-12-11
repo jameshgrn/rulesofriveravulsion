@@ -1,4 +1,4 @@
-# README
+# Rules of River Avulsion Change Downstream Code Stack
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -94,23 +94,32 @@ Now you are ready to run the scripts in this repository.
 
 The codebase is organized into several directories:
 
-- `figure_plotting`: Contains scripts for generating figures for the manuscript. Necessary data cleaning is done with [`figure_plotting/reproduce_figs.py`](figure_plotting/reproduce_figs.py) which should be run before any other figure plotting routine. [`Figure1.py`](figure_plotting/Figure1.py) plots figure 1, [`Figure2.py`](figure_plotting/Figure2.py) plots figure 2, [`Figure3.py`](figure_plotting/Figure3.py) plots figure 3, and [`Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) starts the interactive demonstration of figure 4 (see the [Figures](#figures) section for more information). Plotted figures from the main text are placed into the [`figure_plotting/figures`](figure_plotting/figures) apart from the results of [`figure_plotting/Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) which are placed into [`figure_plotting/figures/figure4`](figure_plotting/figures/figure4). Extended data figures are placed into [`figure_plotting/figures/extended_data_figs`](figure_plotting/figures/extended_data_figs).  
+-`figure_plotting`: Contains scripts for generating figures for the manuscript. Necessary data cleaning is done with [`figure_plotting/reproduce_figs.py`](figure_plotting/reproduce_figs.py) which should be run before any other figure plotting routine. [`Figure1.py`](figure_plotting/Figure1.py) plots figure 1, [`Figure2.py`](figure_plotting/Figure2.py) plots figure 2, [`Figure3.py`](figure_plotting/Figure3.py) plots figure 3, and [`Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) starts the interactive demonstration of figure 4 (see the [Figures](#figures) section for more information). Plotted figures from the main text are placed into the [`figure_plotting/figures`](figure_plotting/figures) apart from the results of [`figure_plotting/Figure4_interactive.py`](figure_plotting/Figure4_interactive.py) which are placed into [`figure_plotting/figures/figure4`](figure_plotting/figures/figure4). Extended data figures are placed into [`figure_plotting/figures/extended_data_figs`](figure_plotting/figures/extended_data_figs).  
 
-- `data`: Contains the data used in the manuscript. [`data/avulsion_data`](data/avulsion_data) contains the raw data files (after downloading and unzipping) that must be used to recreate the plots and analyses from the manuscript. Data used to train, validate, and use the BASED model are located in [`data/BASED_model`](data/BASED_model). Data for extended data figures is in [`data/extended_data_figure_data`](data/extended_data_figure_data). Data for figures 2-4 are included in both ['data/figure2_data'](data/figure2_data) and [`data/figure4_data`](data/figure4_data). Supplementary data tables submitted with the manuscript are located in [`data/manuscript_data`](data/manuscript_data).
+-`data`: Contains the data used in the manuscript. [`data/avulsion_data`](data/avulsion_data) contains the raw data files (after downloading and unzipping) that must be used to recreate the plots and analyses from the manuscript. Data used to train, validate, and use the BASED model are located in [`data/BASED_model`](data/BASED_model). Data for extended data figures is in [`data/extended_data_figure_data`](data/extended_data_figure_data). Data for figures 2-4 are included in both [`data/figure2_data``](data/figure2_data) and [`data/figure4_data`](data/figure4_data). Supplementary data tables submitted with the manuscript are located in [`data/manuscript_data`](data/manuscript_data).
 
-- `based`: Contains the codes required to train and validate for the BASED model.
+-`based`: Contains the codes required to train and validate for the BASED model.
 
 ### Data Structure
 In the avulsion_data, each avulsion location has a designated folder. Within this folder are several files:
+
 -cross sections are **always** denoted by an underscore and number (e.g., '_1') followed by either a `.geojson`, `.feather`, or `.gpkg` extension.
-- For cross sections measured with FABDEM, the file extension is `.geojson` for the vector data and `.csv` for the flatfile data.
+
+-For cross sections measured with FABDEM, the file extension is `.geojson` for the vector data and `.csv` for the flatfile data.
+
 -ICESat-2 data was used for $\beta$ and $\gamma$ data collection, water surface elevation measurement, and validation. For cross sections measured with ICESat-2, the specific measurements used a particular ICESat-2 trackline is denoted in the filename by the strings 'data', 'water', and/or 'val'. All ICESat-2 tracklines contain the string 'UID', standing for unique identifier. All ICESat-2 tracklines utilize the `.feather`, or `.gpkg` extensions.
+
 -Validation cross sections, both with separate vectors and flatfiles, are denoted by the string 'val'.
+
 -Each avulsion location folder also includes a .tif file, which is the FABDEM raster for that location. 
--Each avulsion location folder contains all the ICESat-2 data downloaded for that location. These `.feather` files contain the avulsion name, the string 'data' and **do not have a number at the end of the filename.** 
+
+-Each avulsion location folder contains all the ICESat-2 data downloaded for that location. These `.feather` files contain the avulsion name, the string 'data' and **do not have a number at the end of the filename.**
+
 -Supplementary Table 1 contains the normalized distance data for all 174 cross sections used in figure 1.
+
 -Supplementary Table 2 serves as the master document for the project. Light blue color denotes ICESat-2 was used for that particular measurement. [`data/manuscript_data/datadictionary_supplement.txt`](data/manuscript_data/datadictionary_supplement.txt) serves as a dictionary for the machine-readable column names in this table and others.
-- Supplementary Table 3 contains the validation data for extended data figure 2.
+
+-Supplementary Table 3 contains the validation data for extended data figure 2.
 
 ### Running the Scripts
 
@@ -120,7 +129,7 @@ It is important to run the files in order. A helper zsh script is provided for t
 poetry run zsh plot_figures.zsh
 ```
 
-Currently, the BASED model is commented out of the zsh script. To fully train the BASED model, you can uncomment the line in the zsh script. Note that the BASED model may require a separate environment due to the dated dependencies of the scikit-optimize library. However, models, data, and results are provided in the `based` directory.
+Currently, the BASED model is commented out of the zsh script as it takes a few hours to train test and validate. To fully train the BASED model, you can uncomment the line in the zsh script. *Note that the BASED model may require a separate environment due to the dated dependencies of the scikit-optimize library. However, models, data, and results are provided in the `based` directory.*
 
 ### Figures
 
@@ -131,7 +140,7 @@ Figure 4 is demonstrated interactively; run the command:
 ```zsh
 poetry run python figure_plotting/Figure4_interactive.py
 ```
-will open a GUI that allows you to load a DEM and GeoJSON file and perform a random walk simulation on the DEM using a PyQt5 application for visualizing and interacting with Digital Elevation Models (DEMs), GeoJSON files, and the softmax random walk:
+Will open a GUI that allows you to load a DEM and GeoJSON file and perform a random walk simulation on the DEM using a PyQt5 application for visualizing and interacting with Digital Elevation Models (DEMs), GeoJSON files, and the softmax random walk:
 
 ![Figure 4 output](readme_images/fig4output.png)
 
