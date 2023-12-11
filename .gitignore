@@ -161,6 +161,4 @@ cython_debug/
 
 .venv/
 
-data/avulsion_data/
-
 .DS_Store
