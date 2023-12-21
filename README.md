@@ -62,7 +62,7 @@ git clone https://github.com/jameshgrn/rulesofriveravulsion
 
 ### Data Download
 
-The data utilized in the manuscript can be accessed via our [Zenodo repository](https://zenodo.org/records/10338686). The data is compressed into a zip file and needs to be downloaded and relocated to the [`data/avulsion_data`](data/avulsion_data/) directory. 
+The data utilized in the manuscript can be accessed via our [Zenodo repository](https://zenodo.org/doi/10.5281/zenodo.10338685). The data is compressed into a zip file and needs to be downloaded and relocated to the [`data/avulsion_data`](data/avulsion_data/) directory. 
 
 The `curl` and `unzip` commands can be used in your terminal to download and decompress the data. The following is an illustration of how this can be accomplished:
 
