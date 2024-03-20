@@ -1,3 +1,4 @@
+#%%
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import seaborn as sns
@@ -8,7 +9,6 @@ import matplotlib.ticker as ticker
 
 
 palette = sns.color_palette("colorblind")
-
 
 
 df = pd.read_csv('data/figure2_data/fig2_data.csv')
@@ -33,7 +33,7 @@ plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['ps.fonttype'] = 42
 plt.rcParams['font.size'] = 5
 
-fig = plt.figure(figsize=(5, 3))  # Adjusted width to accommodate the CDF
+fig = plt.figure(figsize=(4, 2))  # Adjusted width to accommodate the CDF
 gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1], wspace=0.2)
 
 ax1 = fig.add_subplot(gs[0])  # For scatter and lines
@@ -58,15 +58,14 @@ ax0.axvline(median_val, color='k', linestyle=':', lw=0.6, label='Median')
 ax0.legend(fontsize=5)
 
 #ax0.set_xticks([])  # Remove xticks for the histogram
-ax0.set_ylabel('CDF', fontsize=7)
+ax0.set_ylabel('CDF', fontsize=7, labelpad=-1)
 ax0.tick_params(axis='both', labelsize=5, pad=-2)
 ax1.errorbar(df['gamma'], df['beta'], yerr=boot_df['beta_uncertainty'], xerr=[df['yerr_lower_relative'], df['yerr_upper_relative']], capsize=2.25, capthick=.4, ls='none', lw=.4, alpha=0.5, color='black', markeredgecolor='black', markersize=8, zorder=1)
 # Scatter plot
 sns.scatterplot(data=df, x=df['gamma'], y='beta', hue='geomorphology', hue_order=['Delta', 'Fan', 'Alluvial Plain'], s=40, edgecolor='k', ax=ax1, alpha=0.75, palette=palette)
-# ax1.set_ylim(0, 5)
-# ax1.set_xlim(0, 35)
+#ax1.set_xlim(-1, 35)
 # Define beta values
-beta = np.linspace(0.01, 5.5, 100)
+beta = np.linspace(0.01, 12.5, 100)
 # Calculate and plot gamma_lambda for each theta value
 thetas = [1, 2, 4]
 colors = ['#003366', '#8B0000', '#4DB6AC']
@@ -75,16 +74,21 @@ for i, theta in enumerate(thetas):
     gamma_lambda = (theta) / beta
     ax1.plot(gamma_lambda, beta, lw=.5, ls=lss[i], color='k', label=rf'$\Lambda = {theta}$')
 
-ax1.grid()
+ax0.grid(True, which='major', axis='both', linestyle='--', linewidth=.5, alpha=0.9)
+
 ax1.legend(fontsize=5)
-ax1.set_ylabel(r'$\beta$', fontsize=7, rotation=0, labelpad=10)
-ax1.set_xlabel(r'$\gamma$', fontsize=7)
+ax1.set_ylabel(r'$\beta$', fontsize=7, rotation=0, labelpad=4)
+ax1.set_xlabel(r'$\gamma$', fontsize=7, labelpad=-.8)
 #ax1.set_xlim(-1, 35)
 
-ax1.grid()
-ax1.tick_params(axis='both', which='major', labelsize=7)
+ax1.grid(True, which='major', axis='both', linestyle='--', linewidth=.5, alpha=0.9)
+ax1.grid(True, which='minor', axis='both', linestyle=':', linewidth=.25, alpha=0.9)
+ax1.tick_params(axis='both', which='both', labelsize=7)
 ax1.set_yscale('log')
 ax1.set_xscale('log')
+ax0.set_xticks([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+#ax0.set_xscale('log')
+ax0.xaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 ax1.xaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 
 
@@ -92,15 +96,17 @@ for spine in ax1.spines.values():
     spine.set_linewidth(.5)
 ax1.tick_params(axis='both', labelsize=5, pad=-2)
 
-ax0.text(.035, 1.035, 'B', transform=ax0.transAxes, 
+ax0.text(.05, 1.045, 'B', transform=ax0.transAxes, 
          fontsize=6, fontweight='bold', va='top', ha='right')
 
 # Label for the scatter plot
-ax1.text(.025, 1.035, 'A', transform=ax1.transAxes, 
+ax1.text(.025, 1.045, 'A', transform=ax1.transAxes, 
          fontsize=6, fontweight='bold', va='top', ha='right')
 
-ax1.set_yticks([.01, 0.1, 1, 10])
+
 ax1.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
-plt.tight_layout()
+#plt.tight_layout()
 plt.margins(0, 0)
 plt.savefig('figure_plotting/figures/figure3.png', dpi=300)
+plt.show()
+# %%

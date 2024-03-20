@@ -1,4 +1,6 @@
+
 #%%
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,6 +27,7 @@ matplotlib.rcParams['font.family'] = 'sans-serif'
 matplotlib.rcParams['font.sans-serif'] = ['Helvetica']
 sns.set_style('whitegrid')
 
+
 df_hist = pd.read_excel('data/manuscript_data/Supplementary Table 1.xlsx')
 df_hist['normalized_distance'] = df_hist['normalized_distance'].astype(float)
 
@@ -49,10 +52,9 @@ ax.spines['left'].set_linewidth(0.5)    # Adjust the line width of the y-axis
 sns.despine()
 
 
-
 #%%
 # Load data
-df = pd.read_excel('/Users/jakegearon/CursorProjects/RoRA_NatureSubmit/submission_data_final.xlsx')
+df = pd.read_excel('data/manuscript_data/starting_data.xlsx')
 # Preprocessing calculations
 df['sar_mean'] = df[['sar1', 'sar1', 'sar3']].mean(axis=1)
 df['sm_mean'] = df[['sm1', 'sm2', 'sm3']].mean(axis=1)
@@ -134,12 +136,11 @@ df.loc[mask1, 'se_max1'] = df['har1_m'] / df['xgb_depth']
 df.loc[mask1, 'se_max2'] = df['har2_m'] / df['xgb_depth']
 df.loc[mask1, 'se_max3'] = df['har3_m'] / df['xgb_depth']
 
-
+#most confident
 df.loc[mask2, 'se_max1'] = df['har1_m'] / (df['are1_m'] - (df['wse1_m']))
 df.loc[mask2, 'se_max2'] = df['har2_m'] / (df['are2_m'] - (df['wse2_m']))
 df.loc[mask2, 'se_max3'] = df['har3_m'] / (df['are3_m'] - (df['wse3_m']))
 
-# When A/B > 4
 df.loc[mask3, 'se_max1'] = df['har1_m'] / (df['are1_m'] - (df['wse1_m']-df['xgb_depth']))  # Fill this in with the relevant formula
 df.loc[mask3, 'se_max2'] = df['har2_m'] / (df['are2_m'] - (df['wse2_m']-df['xgb_depth']))  # Fill this in with the relevant formula
 df.loc[mask3, 'se_max3'] = df['har3_m'] / (df['are3_m'] - (df['wse3_m']-df['xgb_depth']))  # Fill this in with the relevant formula
@@ -226,3 +227,5 @@ df['sar3_distance_m'] = df['har3_m']/df['sar3']
 trampush_csv.to_csv("data/figure2_data/TrampushDataCleanProcessed.csv", index=False)
 df.to_csv("data/figure2_data/fig2_data.csv", index=False)
 
+
+# %%

@@ -1,8 +1,11 @@
 # data dictionary
 # blue color denotes icesat-2 measurement
-For final_submission_data.xlsx
+For Supplementary Table 2.xlsx
 -------------------------------
 
+Avulsion Name: name of the avulsion.
+geometry: geometry of the avulsion (point).
+source: source of the avulsion data.
 num_icesat_measurements: number of ICESat measurements used.
 num_fabdem_measurements: number of FABDEM measurements used.
 method_used: method used to calculate the channel depth based on the relationship between A and B. 1 = A<B, 2 = 1<A<1.5B, 3 = A>1.5B.

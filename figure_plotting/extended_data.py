@@ -14,7 +14,7 @@ matplotlib.rcParams['ps.fonttype'] = 42
 plt.rcParams['font.size'] = 5
 
 # Load your data
-df_val = pd.read_excel('data/manuscript_data/validation_data.xlsx')
+df_val = pd.read_excel('data/manuscript_data/Supplementary Table 3.xlsx')
 
 df_grdi_basins = gpd.read_file('data/extended_data_figure_data/level_7_avulsion_basins_grdi.geojson')
 

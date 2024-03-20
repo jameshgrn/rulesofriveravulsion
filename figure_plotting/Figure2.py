@@ -13,7 +13,7 @@ from sklearn.metrics import mean_squared_error
 from matplotlib import gridspec
 from scipy.optimize import curve_fit
 import pickle
-
+import os
 
 meanprops = {
     "marker": "D",
@@ -79,9 +79,6 @@ boot_df.to_csv("data/figure2_data/fig2_data_boot.csv", index=False)
 
 import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
-
-
-
 
 
 def plot_scatter_with_lowess(ax, data, x_col, y_col, frac=1, len_boot=5000, color_data=None, palette=palette, edgecolor='black'):
@@ -204,24 +201,24 @@ ax4.set_ylabel('')
 ax4.set_xlabel('Geomorphology', fontsize=fontsize)
 
 ax6 = fig.add_subplot(gs1[1:4, 0])
-sns.histplot(data=df, y='beta', bins=10, edgecolor='k', color='white', alpha=1, stat="probability", ax=ax6, zorder=3, linewidth=.5)
+sns.histplot(data=df, y='beta', bins=15, edgecolor='k', color='pink', alpha=1, stat="probability", ax=ax6, zorder=3, linewidth=.5)
 ax6.set_ylabel(r'$\beta$', rotation=0, fontsize=fontsize)
 ax6.set_yticks([0, 1, 2, 3, 4, 5])
 ax6.set_xticks([0, 0.1, 0.2, 0.3, 0.4])
 ax6.grid(False)
 ax6.xaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 ax6.set_xlabel('')
-ax6.axhspan(.5, 1.1, color='#BDBDBD', alpha=.2, fill=True, zorder=1)
+ax6.axhspan(.5, 1.1, color='#BDBDBD', alpha=.6, fill=True, zorder=1)
 ax6.set_ylim(0, 5.5)
 median_superelevation = df['beta'].median()
 ax6.axhline(y=median_superelevation, color='black', linestyle='-.', linewidth=.75, zorder=4)
 
 ax7 = fig.add_subplot(gs1[4:7, 0])
 ax7.grid(False)
-sns.histplot(data=df, y='gamma', bins=10, edgecolor='k', color='white', alpha=1, stat="probability", ax=ax7, zorder=3, linewidth=.5)
+sns.histplot(data=df, y='gamma', bins=15, edgecolor='k', color='pink', alpha=1, stat="probability", ax=ax7, zorder=3, linewidth=.5)
 ax7.set_ylabel(r'$\gamma$', rotation=0, fontsize=fontsize)
 ax7.set_xlabel('Probability', fontsize=fontsize)
-ax7.axhspan(3, 10, color='#BDBDBD', alpha=0.2, zorder=1)
+ax7.axhspan(3, 10, color='#BDBDBD', alpha=0.6, zorder=1)
 ax7.set_ylim(-.5, 35)
 median_XS_DS = df['gamma'].median()
 ax7.axhline(y=median_XS_DS, color="black", linestyle='-.', linewidth=.75, zorder=4)
@@ -240,5 +237,6 @@ for ax in all_axes:
 plt.margins(0, 0)
 plt.savefig('figure_plotting/figures/figure2.png', dpi=300)
 plt.savefig('figure_plotting/figures/figure2.pdf')
+plt.show()
 
-
+# %%

@@ -160,5 +160,7 @@ cython_debug/
 #.idea/
 
 .venv/
-
+.history/
+.whisper/
 .DS_Store
+.data/avulsion_data/
