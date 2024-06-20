@@ -131,15 +131,30 @@ def format_func(value, tick_number):
     return "{:.0f}".format(value)
     
 def plot_boxplot(ax, x_data, y_data, order, ylabel=''):
+    # Plot the boxplot
     sns.boxplot(data=df, x=x_data, y=y_data, hue='geomorphology', showfliers=False, flierprops=flierprops,
                 showmeans=True, meanprops=meanprops,
                 order=order, hue_order=['Delta', 'Fan', 'Alluvial Plain'], ax=ax, palette=palette, linewidth=0.5, width=0.75)
 
+    # Calculate the IQR to filter out outliers
+    Q1 = df.groupby(x_data)[y_data].quantile(0.25)
+    Q3 = df.groupby(x_data)[y_data].quantile(0.75)
+    IQR = Q3 - Q1
+
+    # Align the indices of Q1 and Q3 with df
+    filter = df.apply(lambda row: (row[y_data] >= (Q1[row[x_data]] - 1.5 * IQR[row[x_data]])) & 
+                                  (row[y_data] <= (Q3[row[x_data]] + 1.5 * IQR[row[x_data]])), axis=1)
+
+    # Add points to the boxplot, excluding outliers
+    sns.stripplot(data=df[filter], x=x_data, y=y_data, hue='geomorphology', order=order, hue_order=['Delta', 'Fan', 'Alluvial Plain'],
+                  dodge=False, marker='o', alpha=0.6, palette=palette, ax=ax, linewidth=0.25, size=2, edgecolor='gray', jitter=0.2)
+
     ax.grid(axis='y', visible=True)
     ax.set_ylabel(ylabel, labelpad=10, rotation=0)
     labels = ax.get_xticklabels()
-    ax.set_xticks([0,1,2])
+    ax.set_xticks([0, 1, 2])
     ax.set_xticklabels(labels, fontsize=5, ha='center')
+    ax.legend().set_visible(False)  # Hide the legend to avoid duplication
     
 
 #%%

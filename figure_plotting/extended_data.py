@@ -76,6 +76,7 @@ axs[1].text(.028, 1.06, 'B', transform=axs[1].transAxes,
 
 # Save the figure
 fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_2.png', dpi=300, bbox_inches='tight')
+fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_2.pdf', bbox_inches='tight')
 plt.close(fig)
 
 data = [
@@ -143,7 +144,7 @@ final_dict_df = gpd.read_file('data/extended_data_figure_data/g20_grdi.geojson')
 fig, ax = plt.subplots(figsize=(7, 4))  # Adjust the figure size as needed
 # Your histplot code
 ax.fill_between([df_grdi_basins['GRDI_mean'].mean(), final_dict_df['GRDI_mean'].mean()], 0, 30,
-                  hatch='/', edgecolor='gray', alpha=0.1, zorder=0)  # Set xmin and xmax
+                  hatch='/', edgecolor='gray', alpha=0.25, zorder=0)  # Set xmin and xmax
 sns.histplot(data=final_dict_df, x='GRDI_mean', kde=False, fill=True,
              alpha=.5, edgecolor='black', stat="percent", color='red',linewidth=.50, binwidth=4, zorder=2, ax=ax)
 sns.histplot(data=df_grdi_basins, x='GRDI_mean', kde=False, fill=True,
@@ -156,6 +157,7 @@ ax.legend()
 ax.set_xlabel('Relative Deprivation Index')
 plt.tight_layout()
 fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_5.png', dpi=300)
+fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_5.pdf', bbox_inches='tight')
 plt.close(fig)
 
 
@@ -198,6 +200,7 @@ ax.set_ylabel(r'$\beta$', rotation=0)
 ax.grid(True)
 plt.tight_layout()
 fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_4.png', dpi=300)
+fig.savefig('figure_plotting/figures/extended_data_figs/extended_data_figure_4.pdf', bbox_inches='tight')
 plt.close(fig)
 
 

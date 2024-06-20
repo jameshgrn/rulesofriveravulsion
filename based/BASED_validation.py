@@ -218,4 +218,20 @@ for ax in axs:
 
 # Save the figure
 plt.savefig("figure_plotting/figures/extended_data_figs/extended_data_figure_3.png", dpi=300, bbox_inches='tight')
+plt.savefig("figure_plotting/figures/extended_data_figs/extended_data_figure_3.pdf", dpi=300, bbox_inches='tight')
 
+
+fig, ax = plt.subplots(figsize=(3, 3))
+scatter = ax.scatter(trampush_csv['Hbf [m]'], trampush_csv['XGB_depth_M'], alpha=0.8, c='b', edgecolor='k', label='Validation Plot', s=marker_size)
+ax.set_xlabel('Measured Depth (m)')
+ax.set_ylabel('XGBoost Pred. Depth (m)')
+ax.set_title('Validation Plot')
+min_val = min(ax.get_xlim()[0], ax.get_ylim()[0])
+max_val = max(ax.get_xlim()[1], ax.get_ylim()[1])
+ax.plot([min_val, max_val], [min_val, max_val], 'k--', label='1:1 Line')
+ax.legend()
+plt.tight_layout()
+plt.savefig("/Users/jakegearon/projects/misc/valplot.pdf", bbox_inches='tight')
+plt.show()
+
+# %%

@@ -108,5 +108,6 @@ ax1.yaxis.set_major_formatter(ticker.FuncFormatter(custom_formatter))
 #plt.tight_layout()
 plt.margins(0, 0)
 plt.savefig('figure_plotting/figures/figure3.png', dpi=300)
+plt.savefig('figure_plotting/figures/figure3.pdf')
 plt.show()
 # %%

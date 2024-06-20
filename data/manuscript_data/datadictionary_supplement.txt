@@ -1,10 +1,11 @@
+# Supplementary Note
 # data dictionary
 # blue color denotes icesat-2 measurement
-For Supplementary Table 2.xlsx
+For Supplementary Tables 1 and 2
 -------------------------------
 
 Avulsion Name: name of the avulsion.
-geometry: geometry of the avulsion (point).
+geometry: geometry of the avulsion (WKT point).
 source: source of the avulsion data.
 num_icesat_measurements: number of ICESat measurements used.
 num_fabdem_measurements: number of FABDEM measurements used.
@@ -61,7 +62,18 @@ lambda: product of beta and gamma (-).
 ab_flag: flag for whether or not a > b.
 beta_uncertainty: uncertainty in beta from monte carlo simulation, see manuscript for details.
 
--------------------------------
 
-For XN_hist_data.xlsx
+
+**For Supplementary Table 1
+-------------------------------
 all the same as above apart from the USED_FLAG column which denotes whether or not the measurement was used in the beta and gamma analysis. 1 = used, 0 = not used.
+
+
+For Supplementary Table 3
+-------------------------------
+avulsion_name: name of the river avulsion
+IS2_har_m: Height of alluvial ridge in meters measured with ICESat-2
+FABDEM_har_m: Height of alluvial ridge in meters measured with FABDEM
+IS2_sar: Slope of alluvial ridge (m/m) measured with ICESat-2
+FABDEM_sar: Slope of alluvial ridge (m/m) measured with FABDEM
+
