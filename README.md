@@ -1,5 +1,5 @@
 # Rules of River Avulsion Change Downstream Code Stack
-
+[![DOI](https://zenodo.org/badge/729247566.svg)](https://zenodo.org/doi/10.5281/zenodo.13693547)
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Installation](#installation)
